@@ -2,17 +2,18 @@ package javaapplication116;
 
 public class campo {
     
-    private int size = 0;
     private String tipo;
     private String nombre;
+    private int size;
     private boolean llave;
 
-    public campo(String tipo, String nombre, boolean llave) {
+    public campo(String tipo, String nombre, int size, boolean llave) {
         this.tipo = tipo;
         this.nombre = nombre;
+        this.size = size;
         this.llave = llave;
     }
-
+    
     public int getSize() {
         return size;
     }
@@ -45,6 +46,17 @@ public class campo {
         this.llave = llave;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
     
+    public String toStringFile(){
+        if (llave) {
+            return nombre + ";" + tipo + ";" + size + ";" + "true" + ":";
+        }else{
+            return nombre + ";" + tipo + ";" + size + ";" + "false" + ":";
+        }
+    }
     
 }
