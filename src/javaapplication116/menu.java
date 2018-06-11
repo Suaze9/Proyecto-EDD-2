@@ -9,6 +9,7 @@ import java.awt.GraphicsEnvironment;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class menu extends javax.swing.JFrame {
      */
     public menu() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -58,18 +60,18 @@ public class menu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jm_file = new javax.swing.JMenu();
         jmi_nuevoArchivo = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jmi_abrirArchivo = new javax.swing.JMenuItem();
+        jmi_guardarArchivo = new javax.swing.JMenuItem();
+        jmi_cerrarArchivo = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmi_salir = new javax.swing.JMenuItem();
+        jm_entry = new javax.swing.JMenu();
+        jmi_agregarRegistro = new javax.swing.JMenuItem();
+        jmi_eliminarRegistro = new javax.swing.JMenuItem();
         jm_edit = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        jmi_crearCampo = new javax.swing.JMenuItem();
+        jmi_modificarCampo = new javax.swing.JMenuItem();
+        jmi_eliminarCampo = new javax.swing.JMenuItem();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Nuevo Campo");
@@ -78,7 +80,7 @@ public class menu extends javax.swing.JFrame {
 
         jLabel3.setText("Tipo");
 
-        jcb_tipoCampo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "String", "Integer" }));
+        jcb_tipoCampo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "String", "Char", "Integer", "Double", "Float", "Long", "Short", "Byte", "Object" }));
 
         jLabel4.setText("Tamaño");
 
@@ -151,6 +153,7 @@ public class menu extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Proyecto EDD2");
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -162,7 +165,7 @@ public class menu extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable);
 
-        jm_file.setText("File");
+        jm_file.setText("Archivo");
 
         jmi_nuevoArchivo.setText("Nuevo Archio");
         jmi_nuevoArchivo.addActionListener(new java.awt.event.ActionListener() {
@@ -172,58 +175,68 @@ public class menu extends javax.swing.JFrame {
         });
         jm_file.add(jmi_nuevoArchivo);
 
-        jMenuItem2.setText("Abrir Archivo");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jmi_abrirArchivo.setText("Abrir Archivo");
+        jmi_abrirArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jmi_abrirArchivoActionPerformed(evt);
             }
         });
-        jm_file.add(jMenuItem2);
+        jm_file.add(jmi_abrirArchivo);
 
-        jMenuItem3.setText("Guardar Archivo");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmi_guardarArchivo.setText("Guardar Archivo");
+        jmi_guardarArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmi_guardarArchivoActionPerformed(evt);
             }
         });
-        jm_file.add(jMenuItem3);
+        jm_file.add(jmi_guardarArchivo);
 
-        jMenuItem5.setText("Cerrar Archivo");
-        jm_file.add(jMenuItem5);
+        jmi_cerrarArchivo.setText("Cerrar Archivo");
+        jmi_cerrarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_cerrarArchivoActionPerformed(evt);
+            }
+        });
+        jm_file.add(jmi_cerrarArchivo);
         jm_file.add(jSeparator1);
 
-        jMenuItem4.setText("Salir");
-        jm_file.add(jMenuItem4);
+        jmi_salir.setText("Salir");
+        jm_file.add(jmi_salir);
 
         jMenuBar1.add(jm_file);
 
-        jm_edit.setText("Edit");
+        jm_entry.setText("Registros");
 
-        jMenuItem6.setText("Crear Campo");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jmi_agregarRegistro.setText("Agregar Registro");
+        jmi_agregarRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jmi_agregarRegistroActionPerformed(evt);
             }
         });
-        jm_edit.add(jMenuItem6);
+        jm_entry.add(jmi_agregarRegistro);
 
-        jMenuItem7.setText("Modificar Campo");
-        jm_edit.add(jMenuItem7);
+        jmi_eliminarRegistro.setText("Eliminar Registro");
+        jm_entry.add(jmi_eliminarRegistro);
 
-        jMenuItem8.setText("Eliminar Campo");
-        jm_edit.add(jMenuItem8);
+        jMenuBar1.add(jm_entry);
+
+        jm_edit.setText("Campos");
+
+        jmi_crearCampo.setText("Crear Campo");
+        jmi_crearCampo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_crearCampoActionPerformed(evt);
+            }
+        });
+        jm_edit.add(jmi_crearCampo);
+
+        jmi_modificarCampo.setText("Modificar Campo");
+        jm_edit.add(jmi_modificarCampo);
+
+        jmi_eliminarCampo.setText("Eliminar Campo");
+        jm_edit.add(jmi_eliminarCampo);
 
         jMenuBar1.add(jm_edit);
-
-        jMenu1.setText("Registros");
-
-        jMenuItem9.setText("Agregar Registro");
-        jMenu1.add(jMenuItem9);
-
-        jMenuItem10.setText("Eliminar Registro");
-        jMenu1.add(jMenuItem10);
-
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -250,40 +263,46 @@ public class menu extends javax.swing.JFrame {
     File file;
     boolean openFile = false;
     ArrayList<campo> campos = new ArrayList();
-    
-    private void actualizarTabla(){
+    char[] metaDatos = new char[500];
+
+    private void actualizarTabla() {
         DefaultTableModel tableModel = new DefaultTableModel();
         for (campo campoActual : campos) {
             tableModel.addColumn(campoActual.getNombre());
         }
         jTable.setModel(tableModel);
     }
-    
-    private void nuevoArchivo(){
+
+    private void nuevoArchivo() {
         JFileChooser jfc = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
         jfc.setFileFilter(filter);
         jfc.showOpenDialog(null);
         file = jfc.getSelectedFile();
-        try{
+        String aux = file.getAbsolutePath();
+        if (!aux.endsWith(".txt")) {
+            aux += ".txt";
+        }
+        file = new File(aux);
+        try {
             if (file != null) {
                 if (file.toPath().toString().endsWith(".txt")) {
                     if (!file.exists()) {
                         file.createNewFile();
                     }
                     openFile = true;
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "El tipo de archivo ingresado es invalido.");
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    private void escribirArchivo(){
-        
-        try{
+
+    private void escribirArchivo() {
+
+        try {
             if (!openFile) {
                 JOptionPane.showMessageDialog(this, "No hay archivo abierto.");
                 return;
@@ -292,7 +311,7 @@ public class menu extends javax.swing.JFrame {
             BufferedWriter bw = new BufferedWriter(writer);
 
             String buffer = "";
-            
+
             for (campo campoActual : campos) {
                 buffer += campoActual.toStringFile();
             }
@@ -303,19 +322,19 @@ public class menu extends javax.swing.JFrame {
             bw.write(buffer);
             bw.flush();
             bw.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return;
         }
     }
-    
-    private void cargarArchivo(){
+
+    private void cargarArchivo() {
         try {
             if (openFile) {
                 int input = JOptionPane.showConfirmDialog(this, "Desea guardar el archivo antes de cargar?");
                 if (input == 0) {
-                    
-                }else if (input == 2){
+
+                } else if (input == 2) {
                     return;
                 }
             }
@@ -331,10 +350,10 @@ public class menu extends javax.swing.JFrame {
             br.read(line, 0, 500);
             String linestr = new String(line);
             String[] camposstr = linestr.split(":");
-            
+
             ArrayList<campo> tempCampos = new ArrayList();
-            
-            for (int i = 0; i < camposstr.length-1; i++) {
+
+            for (int i = 0; i < camposstr.length - 1; i++) {
                 String[] camposCampo = camposstr[i].split(";");
                 String nombre = camposCampo[0];
                 String tipo = camposCampo[1];
@@ -349,22 +368,22 @@ public class menu extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     private void jmi_nuevoArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_nuevoArchivoActionPerformed
         nuevoArchivo();
         actualizarTabla();
     }//GEN-LAST:event_jmi_nuevoArchivoActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void jmi_crearCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_crearCampoActionPerformed
         jf_nuevoCampo.pack();
         jf_nuevoCampo.setLocationRelativeTo(this);
         jf_nuevoCampo.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_jmi_crearCampoActionPerformed
 
     private void jb_aceptarCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarCampoActionPerformed
         String nombre = jtf_nombreCampo.getText();
-        String tipo = (String)jcb_tipoCampo.getSelectedItem();
-        int tamano = (int)js_tamanoCampo.getValue();
+        String tipo = (String) jcb_tipoCampo.getSelectedItem();
+        int tamano = (int) js_tamanoCampo.getValue();
         boolean llave = jcb_llaveCampo.isSelected();
         if (!nombre.isEmpty()) {
             campo nuevoCampo = new campo(tipo, nombre, tamano, llave);
@@ -373,11 +392,11 @@ public class menu extends javax.swing.JFrame {
             jcb_tipoCampo.setSelectedItem("String");
             js_tamanoCampo.setValue(1);
             jcb_llaveCampo.setSelected(false);
-            
+
             jf_nuevoCampo.setVisible(false);
             actualizarTabla();
             JOptionPane.showMessageDialog(this, "Campo agregado exitosamente");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "El nombre esta vacío.");
         }
     }//GEN-LAST:event_jb_aceptarCampoActionPerformed
@@ -391,14 +410,40 @@ public class menu extends javax.swing.JFrame {
         jf_nuevoCampo.setVisible(false);
     }//GEN-LAST:event_jb_cancelarCampoActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jmi_abrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_abrirArchivoActionPerformed
         cargarArchivo();
         actualizarTabla();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jmi_abrirArchivoActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmi_guardarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_guardarArchivoActionPerformed
         escribirArchivo();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        JOptionPane.showMessageDialog(this, "Archivo guardado exitosamente");
+    }//GEN-LAST:event_jmi_guardarArchivoActionPerformed
+
+    private void jmi_cerrarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cerrarArchivoActionPerformed
+        file = null;
+        openFile = false;
+        jTable.setModel(new DefaultTableModel());
+        JOptionPane.showMessageDialog(this, "Archivo cerrado exitosamente");
+    }//GEN-LAST:event_jmi_cerrarArchivoActionPerformed
+
+    private void jmi_agregarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_agregarRegistroActionPerformed
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            if (br.ready()) {
+                metaDatos = new char[500];
+                br.read(metaDatos, 0, 500);
+                String linestr = new String(metaDatos);
+                String[] camposstr = linestr.split(":");
+                
+
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jmi_agregarRegistroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -440,17 +485,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable jTable;
@@ -460,8 +495,18 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jcb_tipoCampo;
     private javax.swing.JFrame jf_nuevoCampo;
     private javax.swing.JMenu jm_edit;
+    private javax.swing.JMenu jm_entry;
     private javax.swing.JMenu jm_file;
+    private javax.swing.JMenuItem jmi_abrirArchivo;
+    private javax.swing.JMenuItem jmi_agregarRegistro;
+    private javax.swing.JMenuItem jmi_cerrarArchivo;
+    private javax.swing.JMenuItem jmi_crearCampo;
+    private javax.swing.JMenuItem jmi_eliminarCampo;
+    private javax.swing.JMenuItem jmi_eliminarRegistro;
+    private javax.swing.JMenuItem jmi_guardarArchivo;
+    private javax.swing.JMenuItem jmi_modificarCampo;
     private javax.swing.JMenuItem jmi_nuevoArchivo;
+    private javax.swing.JMenuItem jmi_salir;
     private javax.swing.JSpinner js_tamanoCampo;
     private javax.swing.JTextField jtf_nombreCampo;
     // End of variables declaration//GEN-END:variables
