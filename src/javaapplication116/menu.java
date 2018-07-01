@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.Stack;
 import java.util.logging.Level;
@@ -92,6 +93,13 @@ public class menu extends javax.swing.JFrame {
         ventanaArbol = new javax.swing.JFrame();
         tf_arbolB = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
+        jf_cambiarLlave = new javax.swing.JFrame();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        cb_camposInt = new javax.swing.JComboBox<>();
+        jl_llaveActual = new javax.swing.JLabel();
+        jb_aceptarCambioLlave = new javax.swing.JButton();
+        jb_cancelarCambioLlave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jb_derecha = new javax.swing.JButton();
@@ -113,6 +121,8 @@ public class menu extends javax.swing.JFrame {
         jmi_crearCampo = new javax.swing.JMenuItem();
         jmi_modificarCampo = new javax.swing.JMenuItem();
         jmi_eliminarCampo = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jmi_reindexar = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -461,6 +471,68 @@ public class menu extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+        jLabel12.setText("Llave Actual");
+
+        jLabel13.setText("Nueva Llave");
+
+        cb_camposInt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jl_llaveActual.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jb_aceptarCambioLlave.setText("Aceptar");
+        jb_aceptarCambioLlave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_aceptarCambioLlaveActionPerformed(evt);
+            }
+        });
+
+        jb_cancelarCambioLlave.setText("Cancelar");
+        jb_cancelarCambioLlave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_cancelarCambioLlaveActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jf_cambiarLlaveLayout = new javax.swing.GroupLayout(jf_cambiarLlave.getContentPane());
+        jf_cambiarLlave.getContentPane().setLayout(jf_cambiarLlaveLayout);
+        jf_cambiarLlaveLayout.setHorizontalGroup(
+            jf_cambiarLlaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_cambiarLlaveLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jf_cambiarLlaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cb_camposInt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jf_cambiarLlaveLayout.createSequentialGroup()
+                        .addGroup(jf_cambiarLlaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jf_cambiarLlaveLayout.createSequentialGroup()
+                        .addComponent(jb_aceptarCambioLlave)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jb_cancelarCambioLlave))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_cambiarLlaveLayout.createSequentialGroup()
+                        .addGap(0, 28, Short.MAX_VALUE)
+                        .addComponent(jl_llaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jf_cambiarLlaveLayout.setVerticalGroup(
+            jf_cambiarLlaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_cambiarLlaveLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jl_llaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cb_camposInt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jf_cambiarLlaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jb_aceptarCambioLlave)
+                    .addComponent(jb_cancelarCambioLlave))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Proyecto EDD2");
         setResizable(false);
@@ -577,6 +649,11 @@ public class menu extends javax.swing.JFrame {
         jMenuBar1.add(jm_entry);
 
         jm_edit.setText("Campos");
+        jm_edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jm_editMouseEntered(evt);
+            }
+        });
 
         jmi_crearCampo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jmi_crearCampo.setText("Crear Campo");
@@ -602,6 +679,15 @@ public class menu extends javax.swing.JFrame {
             }
         });
         jm_edit.add(jmi_eliminarCampo);
+        jm_edit.add(jSeparator2);
+
+        jmi_reindexar.setText("Cambiar Llave Primaria");
+        jmi_reindexar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_reindexarActionPerformed(evt);
+            }
+        });
+        jm_edit.add(jmi_reindexar);
 
         jMenuBar1.add(jm_edit);
 
@@ -664,7 +750,7 @@ public class menu extends javax.swing.JFrame {
     ArrayList<campo> campos = new ArrayList();                                  //<- ArrayList de los campos del registro
 
     ArrayList<registro> registros = new ArrayList();                            //<- ArrayList de los registros DE LA PAGINA ACTUAL SIENDO VISUALIZADA
-    ArrayList<availReg> availList = new ArrayList();                            //<- ArrayList de el availList
+    LinkedList<availReg> availList = new LinkedList();                            //<- ArrayList de el availList
 
     String[] metaDatos;                                                         //<- Arreglo que divide los metadatos del archivo
 
@@ -687,7 +773,11 @@ public class menu extends javax.swing.JFrame {
     private void actualizarTabla() {                                            //Actualiza la Tabla
         DefaultTableModel tableModel = new DefaultTableModel();                 //crea un nuevo tableModel
         for (campo campoActual : campos) {                                      //recorre los campos existentes para agragar las columnas
-            tableModel.addColumn(campoActual.getNombre());
+            if (campoActual.isLlave()) {
+                tableModel.addColumn(campoActual.getNombre() + " *");
+            }else{
+                tableModel.addColumn(campoActual.getNombre());
+            }
         }
         for (registro registro1 : registros) {                                  //recorre los registros actualmente cargados en memoria para agragarlos
             Object[] obj = new Object[registro1.objetos.size()];                //arreglo de los objetos de los registros
@@ -745,7 +835,7 @@ public class menu extends javax.swing.JFrame {
                     indiceReg = 0;
                     registros = new ArrayList();
                     campos = new ArrayList();
-                    availList = new ArrayList();
+                    availList = new LinkedList();
                     posActual = 0;
                     posAnterior = 0;
                     anteriores = new Stack();
@@ -871,7 +961,7 @@ public class menu extends javax.swing.JFrame {
 
             indiceReg = Integer.parseInt(metaDataStr[1]);                       //Agrega la cantidad de indices a memoria
 
-            availList = new ArrayList();                                        //Crea un nuevo arreglo de availList
+            availList = new LinkedList();                                        //Crea un nuevo arreglo de availList
             int posAvail = Integer.parseInt(metaDataStr[2].split("/")[0]);      // pos/index
             int indexAvail = Integer.parseInt(metaDataStr[2].split("/")[1]);    // 0000*/pos/index
             while (posAvail != -1) {                                            //mientras la posicion siguiente leida del availList sea diferente de -1 (que exista)
@@ -924,10 +1014,18 @@ public class menu extends javax.swing.JFrame {
             ArrayList objetos = new ArrayList();                                                //0000Sstring/Iint/Cchar/Ddouble
             char[] sizeReg = new char[4];                                       //Arreglo de caracteres para leer el tamaño del registro
             br.read(sizeReg);                                                   //lee el tamaño del registro
-            int size = Integer.parseInt(new String(sizeReg));                   //Parsea el tamaño a entero
+            int size = 0;                                                       //Parsea el tamaño a entero
+            try{
+                size = Integer.parseInt(new String(sizeReg));
+            }catch(Exception e){
+                pos++;
+                br.reset();
+                continue;
+            }
             char[] registro = new char[size];                                   //Arreglo de caracteres del tamaño del registro
             br.read(registro);                                                  //Lee el registro
             tempLine = new String(registro);                                    //Castea el string del registro
+            System.out.println(tempLine);
             if (tempLine.charAt(0) != '*') {                                    //Revisa que el registro no este eliminado
                 cont++;                                                         //Suma uno al contador de los registros leidos
                 String[] datos = tempLine.split("/");                           //Arreglo de string de los campos (objetos)
@@ -965,15 +1063,15 @@ public class menu extends javax.swing.JFrame {
                             break;
                     }
                 }
-            }
-            Integer ind = null;
-            for (int i = 0; i < campos.size(); i++) {
-                if (campos.get(i).isLlave()) {
-                    ind = (int) objetos.get(i);
+                Integer ind = null;
+                for (int i = 0; i < campos.size(); i++) {
+                    if (campos.get(i).isLlave()) {
+                        ind = (int) objetos.get(i);
+                    }
                 }
+                registro newReg = new registro(ind, campos, objetos);
+                registros.add(newReg);
             }
-            registro newReg = new registro(ind, campos, objetos);
-            registros.add(newReg);
             pos += size + 4;
             br.reset();
         }
@@ -1004,7 +1102,14 @@ public class menu extends javax.swing.JFrame {
             br.read(sizeReg);
             System.out.println("Cargar-" + pos);
             System.out.println(new String(sizeReg) + "-" + new String(sizeReg).length());
-            int size = Integer.parseInt(new String(sizeReg));
+            int size = 0;
+            try{
+                size = Integer.parseInt(new String(sizeReg));
+            }catch(Exception e){
+                pos++;
+                br.reset();
+                continue;
+            }
             char[] registro = new char[size];
             br.read(registro);
             String reg = new String(registro);
@@ -1058,11 +1163,24 @@ public class menu extends javax.swing.JFrame {
                 int posAnt = availList.get(0).pos;
                 for (int i = 1; i < availList.size(); i++) {
                     String tempReg = "*/" + availList.get(i).pos + "/" + availList.get(i).index + "/";
-                    rac.seek((posAnt + 4) * 2);
-                    rac.writeChars(tempReg);
+                    byte[] bytes = tempReg.getBytes();
+                    ByteBuffer bf = ByteBuffer.allocate(bytes.length);
+                    bf.put(bytes);
+                    bf.flip();
+                    rac.seek((posAnt + 4));
+                    rac.getChannel().write(bf);
+                    posAnt = availList.get(i).pos;
                 }
+                String tempReg = "*/" + -1 + "/" + -1 + "/";
+                byte[] bytes = tempReg.getBytes();
+                ByteBuffer bf = ByteBuffer.allocate(bytes.length);
+                bf.put(bytes);
+                bf.flip();
+                rac.seek((posAnt + 4));
+                rac.getChannel().write(bf);
             }
             rac.close();
+            actualizarTabla();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -1115,7 +1233,7 @@ public class menu extends javax.swing.JFrame {
         campos = new ArrayList();
 
         registros = new ArrayList();
-        availList = new ArrayList();
+        availList = new LinkedList();
         indiceReg = 0;
         posReg = 0;
         posAnterior = 0;
@@ -1317,6 +1435,113 @@ public class menu extends javax.swing.JFrame {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    public boolean eliminarRegistro(){
+        try{
+            int fila = jTable.getSelectedRow();
+            if (fila != -1) {
+                DefaultTableModel model = (DefaultTableModel)jTable.getModel();
+                int columna = 0;
+                for (int i = 0; i < campos.size(); i++) {
+                    if (campos.get(i).isLlave()) {
+                        columna = i;
+                        break;
+                    }
+                }
+                int llaveEliminar = (int) model.getValueAt(fila, columna);
+                int posEliminar = arbol.buscarPos(llaveEliminar);
+                registro regEliminar = registros.get(fila);
+                int size = regEliminar.toString().length();
+                availList.add(new availReg(llaveEliminar, size, posEliminar));
+                
+                RandomAccessFile rac = new RandomAccessFile(tempFile, "rw");
+                
+                if (!availList.isEmpty()) {
+                    int posAnt = availList.get(0).pos;
+                    for (int i = 1; i < availList.size(); i++) {
+                        String tempReg = "*/" + availList.get(i).pos + "/" + availList.get(i).index + "/";
+                        while(tempReg.length() < regEliminar.toString().length()){
+                            tempReg = tempReg + " ";
+                        }
+                        byte[] bytes = tempReg.getBytes();
+                        ByteBuffer bf = ByteBuffer.allocate(bytes.length);
+                        bf.put(bytes);
+                        bf.flip();
+                        rac.seek((posAnt + 4));
+                        rac.getChannel().write(bf);
+                        posAnt = availList.get(i).pos;
+                    }
+                    String tempReg = "*/" + -1 + "/" + -1 + "/";
+                    while(tempReg.length() < regEliminar.toString().length()){
+                        tempReg = tempReg + " ";
+                    }
+                    byte[] bytes = tempReg.getBytes();
+                    ByteBuffer bf = ByteBuffer.allocate(bytes.length);
+                    bf.put(bytes);
+                    bf.flip();
+                    rac.seek((posAnt + 4));
+                    rac.getChannel().write(bf);
+                }
+                registros.remove(fila);
+                arbol.delete(posEliminar);
+                actualizarTabla();
+            }
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean cambiarLlave(){
+        ArbolB tempArbol = new ArbolB(orden);
+        int posCampos = 0;
+        for (int i = 0; i < campos.size(); i++) {
+            if (campos.get(i).getNombre().equals((String)cb_camposInt.getSelectedItem())) {
+                posCampos = i;
+                break;
+            }
+        }
+        while(anterior());
+        
+        do{
+            for (int i = 0; i < registros.size(); i++) {
+                if (tempArbol.buscarPos((int)registros.get(i).objetos.get(posCampos)) == -1) {
+                    tempArbol.insert((int)registros.get(i).objetos.get(posCampos), arbol.buscarPos(registros.get(i).index));
+                }else{
+                    JOptionPane.showMessageDialog(this, "Hay mas de un registro con la misma llave. \nAsegurese que el nuevo campo para llave primaria no tenga llaves repetidas", "Error", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            }
+        }while(siguiente());
+        
+        tempArbol = new ArbolB(orden);
+        
+        while(anterior());
+        
+        do{
+            for (int i = 0; i < registros.size(); i++) {
+                if (tempArbol.buscarPos((int)registros.get(i).objetos.get(posCampos)) == -1) {
+                    tempArbol.insert((int)registros.get(i).objetos.get(posCampos), arbol.buscarPos(registros.get(i).index));
+                    registros.get(i).index = (int)registros.get(i).objetos.get(posCampos);
+                }else{
+                    JOptionPane.showMessageDialog(this, "¡¡Error reindexando!!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            }
+        }while(siguiente());
+        
+        for (int i = 0; i < campos.size(); i++) {
+            if (campos.get(i).isLlave()) {
+                campos.get(i).setLlave(false);
+            }
+        }
+        campos.get(posCampos).setLlave(true);
+        arbol = tempArbol;
+        jf_cambiarLlave.setVisible(false);
+        JOptionPane.showMessageDialog(this, "Llave Cambiada Exitosamente", "Llave Cambiada", JOptionPane.INFORMATION_MESSAGE);
+        return true;
     }
 
     private void jmi_nuevoArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_nuevoArchivoActionPerformed
@@ -1533,6 +1758,8 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_agregarRegistroActionPerformed
 
     private void jmi_eliminarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_eliminarRegistroActionPerformed
+        eliminarRegistro();
+        
         /*
         campos.add(new campo("String" , "Nombre", 10, false));
         campos.add(new campo("Integer" , "Numero de Cuenta", 10, true));
@@ -1942,6 +2169,36 @@ public class menu extends javax.swing.JFrame {
                     String mainKey = JOptionPane.showInputDialog(this, message, "Buscar registro", JOptionPane.INFORMATION_MESSAGE);
                     if (isNumber(mainKey)) {
                         int key = Integer.parseInt(mainKey);
+                        int pos = arbol.buscarPos(key);
+                        if (pos != -1) {
+                            while(anterior());
+                            
+                            do {
+                                if (posActual <= pos && pos < posFinal) {
+                                    break;
+                                }
+                            } while (siguiente());
+
+                            actualizarTabla();
+
+                            int columna = 0;
+                            for (int i = 0; i < campos.size(); i++) {
+                                if (campos.get(i).isLlave()) {
+                                    columna = i;
+                                    break;
+                                }
+                            }
+
+                            DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+                            for (int i = 0; i < jTable.getRowCount(); i++) {
+                                if ((int)model.getValueAt(i, columna) == key) {
+                                    jTable.setRowSelectionInterval(i, i);
+                                }
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(this, "La llave no fue encontrada", "Atención", JOptionPane.WARNING_MESSAGE);
+                        }
+                        /*
                         NodoB catcher = arbol.buscar(arbol.raiz, key);
                         if (catcher != null) {
                             int position = catcher.getPosition(key);
@@ -1982,6 +2239,7 @@ public class menu extends javax.swing.JFrame {
                         } else {
                             JOptionPane.showMessageDialog(this, "La llave no fue encontrada", "Atención", JOptionPane.WARNING_MESSAGE);
                         }
+                        */
                     } else {
                         JOptionPane.showMessageDialog(this, "Por favor, ingrese una llave valida (int)", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -2016,6 +2274,62 @@ public class menu extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jm_editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jm_editMouseEntered
+        if (openFile && !modificable) {
+            jmi_reindexar.setEnabled(true);
+        }else{
+            jmi_reindexar.setEnabled(false);
+        }
+    }//GEN-LAST:event_jm_editMouseEntered
+
+    private void jmi_reindexarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_reindexarActionPerformed
+        int contInt = 0;
+        boolean found = false;
+        String campoLlave = "";
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < campos.size(); i++) {
+            if (campos.get(i).getTipo().equals("Integer")) {
+                contInt++;
+                if (campos.get(i).isLlave()) {
+                    found = true;
+                    campoLlave = campos.get(i).getNombre();
+                }else{
+                    model.addElement(campos.get(i).getNombre());
+                }
+            }
+            
+        }
+        if (!found) {
+            JOptionPane.showMessageDialog(this, "No hay llave primaria", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }else if (contInt < 2) {
+            JOptionPane.showMessageDialog(this, "No hay suficientes campos Integer", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        jl_llaveActual.setText(campoLlave);
+        cb_camposInt.setModel(model);
+        this.setEnabled(false);
+        jf_cambiarLlave.pack();
+        jf_cambiarLlave.setLocationRelativeTo(null);
+        jf_cambiarLlave.setVisible(true);
+    }//GEN-LAST:event_jmi_reindexarActionPerformed
+
+    private void jb_aceptarCambioLlaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarCambioLlaveActionPerformed
+        if (cambiarLlave()) {
+            jf_cambiarLlave.setVisible(false);
+            this.setEnabled(true);
+            this.toFront();
+            actualizarTabla();
+        }
+    }//GEN-LAST:event_jb_aceptarCambioLlaveActionPerformed
+
+    private void jb_cancelarCambioLlaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelarCambioLlaveActionPerformed
+        jf_cambiarLlave.setVisible(false);
+        this.setEnabled(true);
+        this.toFront();
+        actualizarTabla();
+    }//GEN-LAST:event_jb_cancelarCambioLlaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2061,6 +2375,7 @@ public class menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cb_camposInt;
     private javax.swing.JComboBox<String> comboCamposEli;
     private javax.swing.JComboBox<String> comboCamposModi;
     private javax.swing.JTextField eliminar_Llave;
@@ -2076,6 +2391,8 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2093,16 +2410,21 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTable jTable;
+    private javax.swing.JButton jb_aceptarCambioLlave;
     private javax.swing.JButton jb_aceptarCampo;
+    private javax.swing.JButton jb_cancelarCambioLlave;
     private javax.swing.JButton jb_cancelarCampo;
     private javax.swing.JButton jb_derecha;
     private javax.swing.JButton jb_izquierda;
     private javax.swing.JCheckBox jcb_llaveCampo;
     private javax.swing.JComboBox<String> jcb_tipoCampo;
+    private javax.swing.JFrame jf_cambiarLlave;
     private javax.swing.JFrame jf_eliminarCampo;
     private javax.swing.JFrame jf_modificarCampo;
     private javax.swing.JFrame jf_nuevoCampo;
+    private javax.swing.JLabel jl_llaveActual;
     private javax.swing.JMenu jm_edit;
     private javax.swing.JMenu jm_entry;
     private javax.swing.JMenu jm_file;
@@ -2115,6 +2437,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_guardarArchivo;
     private javax.swing.JMenuItem jmi_modificarCampo;
     private javax.swing.JMenuItem jmi_nuevoArchivo;
+    private javax.swing.JMenuItem jmi_reindexar;
     private javax.swing.JMenuItem jmi_salir;
     private javax.swing.JSpinner js_tamanoCampo;
     private javax.swing.JTextField jtf_nombreCampo;

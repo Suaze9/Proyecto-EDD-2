@@ -13,4 +13,8 @@ public class availReg {
         this.pos = pos;
     }
     
+    public String toString(){
+        return "index: " + index + " size: " + size + " pos: " + pos + '\n';
+    }
+    
 }

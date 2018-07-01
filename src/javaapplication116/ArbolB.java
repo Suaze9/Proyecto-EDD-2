@@ -121,7 +121,7 @@ public class ArbolB {
         delete(raiz, key);
     }
 
-    public void delete(NodoB node, int key) {
+    private void delete(NodoB node, int key) {
         //Arrays.sort(node.pagina);
         //System.out.println(Arrays.toString(node.pagina));
         if (node.esHoja) {
