@@ -16,7 +16,9 @@ public class NodoB {
     public int paginasLlenas;
     public NodoB[] hijo;
     public boolean esHoja;
-
+    
+    public int[] posiciones;
+    
     public NodoB() {
 
     }
@@ -24,6 +26,7 @@ public class NodoB {
     public NodoB(int order, boolean leaf) {
         this.orden = order;
         pagina = new int[2 * order - 1];
+        posiciones = new int[2 * order - 1];
         hijo = new NodoB[2 * order];
         esHoja = leaf;
         paginasLlenas = 0;
@@ -65,6 +68,7 @@ public class NodoB {
         //copia la mitad de la derecha
         for (int j = 0; j < orden - 1; j++) {
             z.pagina[j] = y.pagina[j + orden];
+            z.posiciones[j] = y.posiciones[j + orden];
         }
         if (y.esHoja() == false) {
             //si no es hoja, reasignamos nodos hijos
@@ -77,6 +81,7 @@ public class NodoB {
         }
         for (int j = orden; j < y.paginasLlenas; j++) {
             y.pagina[j] = 0;
+            y.posiciones[j] = 0;
         }
         y.paginasLlenas = orden - 1;
         for (int j = this.getPaginasLlenas(); j >= i + 1; j--) {
@@ -87,22 +92,27 @@ public class NodoB {
         for (int j = this.getPaginasLlenas() - 1; j >= i; j--) {
             //cambia las llaves de x
             this.pagina[j + 1] = this.pagina[j];
+            this.posiciones[j + 1] = this.posiciones[j];
         }
         //empuja el valor a la raiz
         this.pagina[i] = y.pagina[orden - 1];
         y.pagina[orden - 1] = 0;
+        this.posiciones[i] = y.posiciones[orden - 1];
+        y.posiciones[orden - 1] = 0;
         this.paginasLlenas++;
     }
 
-    public void insertNonFull(int key) {
+    public void insertNonFull(int key, int regPos) {
         int i = this.getPaginasLlenas() - 1;
         if (this.esHoja() == true) {
             //correr todo hacia la derecha
             while (i >= 0 && key < this.pagina[i]) {
                 this.pagina[i + 1] = this.pagina[i];
+                this.posiciones[i + 1] = this.posiciones[i];
                 i--;
             }
             this.pagina[i + 1] = key;
+            this.posiciones[i + 1] = regPos;
             this.paginasLlenas++;
         } else {
             //encontrar hijo donde "key" pertenece
@@ -117,7 +127,7 @@ public class NodoB {
                     j++;
                 }
             }
-            hijo[j + 1].insertNonFull(key);
+            hijo[j + 1].insertNonFull(key, regPos);
         }
     }
 
@@ -135,4 +145,75 @@ public class NodoB {
         return hijo[i].search(k);
     }
     
+    public int getPosition(int key){
+        for (int i = 0; i < paginasLlenas; i++) {
+            if(pagina[i] == key){
+                return posiciones[i];
+            }
+        }        
+        return 0;
+    }
+    
+    //////////////////////////
+    //Metodos para borrar/////
+    //////////////////////////
+    
+    public int binarySearch(int key) {
+        int izq = 0;
+        int der = paginasLlenas - 1;
+        while (izq <= der) {
+            int mid = izq + ((der - izq) / 2);
+            if (pagina[mid] < key) {
+                izq = mid + 1;
+            } else if (pagina[mid] > key) {
+                der = mid - 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1;
+    }
+
+    public void remove(int ind, int leftOrRight) {
+        if (ind >= 0) {
+            int i;
+            for (i = ind; i < paginasLlenas - 1; i++) {
+                pagina[i] = pagina[i + 1];
+                if (esHoja == false) {
+                    if (i >= ind + leftOrRight) {
+                        hijo[i] = hijo[i + 1];
+                    }
+                }
+            }
+            pagina[i] = 0;
+            if (esHoja == false) {
+                if (i >= ind + leftOrRight) {
+                    hijo[i] = hijo[i + 1];
+                }
+                hijo[i + 1] = null;
+            }
+            paginasLlenas--;
+        }
+    }
+
+    public void correrUno() {
+        if (esHoja == false) {
+            hijo[paginasLlenas + 1] = hijo[paginasLlenas];
+        }
+        for (int i = paginasLlenas-1; i >= 0; i--) {
+            pagina[i+1] = pagina[i];
+            if(esHoja == false){
+                hijo[i+1] = hijo[i];
+            }
+        }
+    }
+    
+    public int subTreeRootNodeIndex(int key){
+        for (int i = 0; i < paginasLlenas; i++) {
+            if(key < pagina[i]){
+                return i;
+            }
+        }
+        return paginasLlenas;
+    }
 }
