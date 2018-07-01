@@ -179,6 +179,7 @@ public class NodoB {
             int i;
             for (i = ind; i < paginasLlenas - 1; i++) {
                 pagina[i] = pagina[i + 1];
+                posiciones[i] = posiciones[i+1];
                 if (esHoja == false) {
                     if (i >= ind + leftOrRight) {
                         hijo[i] = hijo[i + 1];
@@ -186,6 +187,7 @@ public class NodoB {
                 }
             }
             pagina[i] = 0;
+            posiciones[i] = 0;
             if (esHoja == false) {
                 if (i >= ind + leftOrRight) {
                     hijo[i] = hijo[i + 1];
@@ -202,6 +204,7 @@ public class NodoB {
         }
         for (int i = paginasLlenas-1; i >= 0; i--) {
             pagina[i+1] = pagina[i];
+            posiciones[i+1] = posiciones[i];
             if(esHoja == false){
                 hijo[i+1] = hijo[i];
             }

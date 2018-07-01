@@ -143,6 +143,7 @@ public class ArbolB {
                         predecessor = predecessor.hijo[node.paginasLlenas - 1];
                     }
                     node.pagina[i] = predecessor.pagina[predecessor.paginasLlenas - 1];
+                    node.posiciones[i] = predecessor.posiciones[predecessor.paginasLlenas-1];
                     delete(eraser, node.pagina[i]);
                 } else if (hijoDer.paginasLlenas >= orden) {
                     //si el sucesor tiene al menos t llaves
@@ -153,6 +154,7 @@ public class ArbolB {
                         successor = successor.hijo[0];
                     }
                     node.pagina[i] = successor.pagina[0];
+                    node.posiciones[i] = successor.posiciones[0];
                     delete(eraser, node.pagina[i]);
                 } else { //si ninguno cumple las condiciones
                     int median = merge(hijoIzq, hijoDer);
@@ -168,22 +170,26 @@ public class ArbolB {
                     if (hermanoIzq != null && hermanoIzq.paginasLlenas >= orden) {
                         child.correrUno();
                         child.pagina[0] = node.pagina[i - 1];
+                        child.posiciones[0] = node.posiciones[i-1];
                         if (child.esHoja == false) {
                             child.hijo[0] = hermanoIzq.hijo[hermanoIzq.getPaginasLlenas()];
                         }
                         child.paginasLlenas++;
                         //mover una pagina del hermano de la izquiera al subarbol
                         node.pagina[i - 1] = hermanoIzq.pagina[hermanoIzq.paginasLlenas - 1];
+                        node.posiciones[i - 1] = hermanoIzq.posiciones[hermanoIzq.paginasLlenas - 1];
                         //borrar la key junto con el hermano de la derecha
                         hermanoIzq.remove(hermanoIzq.paginasLlenas - 1, 1);
                     } else if (hermanoDer != null && hermanoDer.paginasLlenas >= orden) {
                         child.pagina[child.paginasLlenas] = node.pagina[i];
+                        child.posiciones[child.paginasLlenas] = node.posiciones[i];
                         if (child.esHoja == false) {
                             child.hijo[child.paginasLlenas + 1] = hermanoDer.hijo[0];
                         }
                         child.paginasLlenas++;
                         //mover una paginas del hermano de la derecha al subarbol
                         node.pagina[i] = hermanoDer.pagina[0];
+                        node.posiciones[i] = hermanoDer.posiciones[0];
                         //borrar la key junto con el hermano de la izq
                         hermanoDer.remove(0, 0);
                     } else {
@@ -214,6 +220,7 @@ public class ArbolB {
             }
             for (i = destiny.paginasLlenas; i > 0; i--) {
                 destiny.pagina[source.paginasLlenas + i] = destiny.pagina[i - 1];
+                destiny.posiciones[source.paginasLlenas + i] = destiny.posiciones[i - 1];
                 if (destiny.esHoja == false) {
                     destiny.hijo[source.paginasLlenas + i] = destiny.hijo[i - 1];
                 }
@@ -221,9 +228,11 @@ public class ArbolB {
             //borrar el median
             median = source.paginasLlenas;
             destiny.pagina[median] = 0;
+            destiny.posiciones[median] = 0;
             //copiar los elementos de source a destiny
             for (i = 0; i < source.paginasLlenas; i++) {
                 destiny.pagina[i] = source.pagina[i];
+                destiny.posiciones[i] = source.posiciones[i];
                 if (source.esHoja == false) {
                     destiny.hijo[i] = source.hijo[i];
                 }
@@ -235,11 +244,13 @@ public class ArbolB {
             //borrar el median
             median = destiny.getPaginasLlenas();
             destiny.pagina[median] = 0;
+            destiny.posiciones[median] = 0;
             //copiar de source a destiny
             int offset = median + 1;
             int i;
             for (i = 0; i < source.paginasLlenas; i++) {
                 destiny.pagina[offset + i] = source.pagina[i];
+                destiny.posiciones[offset + i] = source.posiciones[i];
                 if (source.esHoja == false) {
                     destiny.hijo[offset + i] = source.hijo[i];
                 }
@@ -254,9 +265,8 @@ public class ArbolB {
     }
 
     public void moveKey(NodoB source, int sourceIndex, int childIndex, NodoB destiny, int median) {
-        //bubbleSort(destiny);
-        //bubbleSort(source);
         destiny.pagina[median] = source.pagina[sourceIndex];
+        destiny.posiciones[median] = source.posiciones[median];
         destiny.paginasLlenas++;
         source.remove(sourceIndex, childIndex);
         if (source == raiz && source.paginasLlenas == 0) {
