@@ -1856,6 +1856,21 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_eliminarRegistroActionPerformed
 
     private void jmi_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_salirActionPerformed
+        if (openFile) {                                                     //Si ya hay un arhcivo abierto, pregunta si desea guardar antes de cerrar.
+            int input = JOptionPane.showConfirmDialog(this, "Desea guardar el archivo antes de salir?");
+            if (input == JOptionPane.YES_OPTION) {
+                boolean exito = escribirArchivo(file);
+                if (!exito) {
+                    JOptionPane.showMessageDialog(this, "Error al guardar archivo", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "¡Archivo guardado exitósamente!", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else if (input == JOptionPane.NO_OPTION) {
+                return;
+            }else{
+                
+            }
+        }
         cerrarArchivo();
         this.dispose();
     }//GEN-LAST:event_jmi_salirActionPerformed
@@ -2538,7 +2553,7 @@ public class menu extends javax.swing.JFrame {
     private void boton_saveExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_saveExitActionPerformed
         if (cb_modificarRegistro.getSelectedIndex() > 0) {
             try {
-                RandomAccessFile raf = new RandomAccessFile(file, "rw");
+                RandomAccessFile raf = new RandomAccessFile(tempFile, "rw");
                 String tam = entryToModify.length() + "";
                 String os = "";
                 for (int i = tam.length(); i < 4; i++) {
@@ -2548,12 +2563,8 @@ public class menu extends javax.swing.JFrame {
                 raf.seek(positionToModify);
                 raf.write(entryToModify.getBytes());
                 raf.close();
-
-//                BufferedWriter bw = new BufferedWriter(new FileWriter(file,true));
-//                bw.write(entryToModify, positionToModify, entryToModify.length());
-//                bw.flush();
-//                bw.close();
-                //cargarArchivo();
+                while (anterior());
+                cargarRegistros();
                 actualizarTabla();
                 JOptionPane.showMessageDialog(this, "Escrito con éxito", "Escritura hecha", JOptionPane.INFORMATION_MESSAGE);
                 jf_modificarRegistro.dispose();
