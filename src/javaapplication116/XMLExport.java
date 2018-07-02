@@ -64,7 +64,7 @@ public class XMLExport {
             }
 
         } catch (Exception ex) {
-            Logger.getLogger(XMLExport.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(XMLExport.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -35,7 +35,7 @@ public class ArbolB {
     //muestra el arbol al usuario
     public void mostrarArbol(NodoB nodo, String cadena, char caracter) {
         for (int i = 0; i < nodo.getPaginasLlenas(); i++) {
-            System.out.print(nodo.pagina[i] + " ");
+//            System.out.print(nodo.pagina[i] + " ");
         }
         if (!nodo.esHoja()) {
             cadena += caracter;
@@ -77,15 +77,15 @@ public class ArbolB {
     public int buscarPos(int llave) {
         NodoB nodo = buscar(raiz, llave);
         if (nodo != null) {
-            System.out.println("Llave = " + llave);
-            System.out.println("Paginas Llenas = " + nodo.paginasLlenas);
+//            System.out.println("Llave = " + llave);
+//            System.out.println("Paginas Llenas = " + nodo.paginasLlenas);
             for (int i = 0; i < nodo.paginasLlenas; i++) {
-                System.out.print(nodo.pagina[i] + " ");
+//                System.out.print(nodo.pagina[i] + " ");
                 if (nodo.pagina[i] == llave) {
                     return nodo.posiciones[i];
                 }
             }
-            System.out.println("");
+//            System.out.println("");
         }
         return -1;
     }

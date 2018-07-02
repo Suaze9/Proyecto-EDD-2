@@ -36,7 +36,7 @@ public class NodoB {
         try {
             return pagina[index];
         } catch (Exception e) {
-            System.out.println("¡Error, indice invalido!");
+//            System.out.println("¡Error, indice invalido!");
             return 0;
         }
     }
@@ -45,7 +45,7 @@ public class NodoB {
         try {
             return hijo[index];
         } catch (Exception e) {
-            System.out.println("¡Error, indice invalido!");
+//            System.out.println("¡Error, indice invalido!");
             return null;
         }
     }

@@ -16,14 +16,18 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.ParserConfigurationException;
@@ -102,6 +106,26 @@ public class menu extends javax.swing.JFrame {
         boton_guardarBuffer = new javax.swing.JButton();
         boton_saveExit = new javax.swing.JButton();
         boton_cancelarModificacion = new javax.swing.JButton();
+        jf_cruzarArchivo = new javax.swing.JFrame();
+        jLabel16 = new javax.swing.JLabel();
+        jl_llaveCruz = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jl_noCruz1 = new javax.swing.JList<>();
+        jLabel18 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jl_Cruz1 = new javax.swing.JList<>();
+        jb_derecha1 = new javax.swing.JButton();
+        jb_izquierda1 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jl_Cruz2 = new javax.swing.JList<>();
+        jb_derecha2 = new javax.swing.JButton();
+        jb_izquierda2 = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jl_noCruz2 = new javax.swing.JList<>();
+        jLabel20 = new javax.swing.JLabel();
+        jb_aceptarCruce = new javax.swing.JButton();
+        jb_cancelarCruce = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jb_derecha = new javax.swing.JButton();
@@ -112,8 +136,10 @@ public class menu extends javax.swing.JFrame {
         jmi_abrirArchivo = new javax.swing.JMenuItem();
         jmi_guardarArchivo = new javax.swing.JMenuItem();
         jmi_cerrarArchivo = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jmi_cruzarArchivos = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        mi_imprimirArbol = new javax.swing.JMenuItem();
+        jmi_imprimirArbol = new javax.swing.JMenuItem();
         jmi_salir = new javax.swing.JMenuItem();
         jm_entry = new javax.swing.JMenu();
         jmi_agregarRegistro = new javax.swing.JMenuItem();
@@ -548,6 +574,149 @@ public class menu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jf_cruzarArchivo.setResizable(false);
+
+        jLabel16.setText("Llave por Cruzar");
+
+        jl_llaveCruz.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel17.setText("Campos por Cruzar");
+
+        jScrollPane2.setViewportView(jl_noCruz1);
+
+        jLabel18.setText("Archivo 1");
+
+        jScrollPane3.setViewportView(jl_Cruz1);
+
+        jb_derecha1.setText("->");
+        jb_derecha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_derecha1ActionPerformed(evt);
+            }
+        });
+
+        jb_izquierda1.setText("<-");
+        jb_izquierda1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_izquierda1ActionPerformed(evt);
+            }
+        });
+
+        jScrollPane6.setViewportView(jl_Cruz2);
+
+        jb_derecha2.setText("->");
+        jb_derecha2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_derecha2ActionPerformed(evt);
+            }
+        });
+
+        jb_izquierda2.setText("<-");
+        jb_izquierda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_izquierda2ActionPerformed(evt);
+            }
+        });
+
+        jScrollPane7.setViewportView(jl_noCruz2);
+
+        jLabel20.setText("Archivo 2");
+
+        jb_aceptarCruce.setText("Aceptar");
+        jb_aceptarCruce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_aceptarCruceActionPerformed(evt);
+            }
+        });
+
+        jb_cancelarCruce.setText("Cancelar");
+        jb_cancelarCruce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_cancelarCruceActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jf_cruzarArchivoLayout = new javax.swing.GroupLayout(jf_cruzarArchivo.getContentPane());
+        jf_cruzarArchivo.getContentPane().setLayout(jf_cruzarArchivoLayout);
+        jf_cruzarArchivoLayout.setHorizontalGroup(
+            jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_cruzarArchivoLayout.createSequentialGroup()
+                .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jf_cruzarArchivoLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jf_cruzarArchivoLayout.createSequentialGroup()
+                                .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jb_aceptarCruce)
+                                    .addComponent(jLabel20))
+                                .addGap(18, 18, 18)
+                                .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jb_cancelarCruce)
+                                    .addGroup(jf_cruzarArchivoLayout.createSequentialGroup()
+                                        .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jb_derecha2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jb_izquierda2))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jf_cruzarArchivoLayout.createSequentialGroup()
+                                        .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jb_derecha1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jb_izquierda1))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel18)))
+                    .addGroup(jf_cruzarArchivoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jf_cruzarArchivoLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jl_llaveCruz, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jf_cruzarArchivoLayout.setVerticalGroup(
+            jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_cruzarArchivoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jl_llaveCruz, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jf_cruzarArchivoLayout.createSequentialGroup()
+                        .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_cruzarArchivoLayout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jf_cruzarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jb_aceptarCruce)
+                            .addComponent(jb_cancelarCruce)))
+                    .addGroup(jf_cruzarArchivoLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jb_derecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jb_izquierda1)
+                        .addGap(98, 98, 98)
+                        .addComponent(jb_derecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jb_izquierda2)))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Proyecto EDD2");
         setResizable(false);
@@ -613,15 +782,24 @@ public class menu extends javax.swing.JFrame {
             }
         });
         jm_file.add(jmi_cerrarArchivo);
-        jm_file.add(jSeparator1);
+        jm_file.add(jSeparator3);
 
-        mi_imprimirArbol.setText("Imprimir Arbol");
-        mi_imprimirArbol.addActionListener(new java.awt.event.ActionListener() {
+        jmi_cruzarArchivos.setText("Cruzar Archivos");
+        jmi_cruzarArchivos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mi_imprimirArbolActionPerformed(evt);
+                jmi_cruzarArchivosActionPerformed(evt);
             }
         });
-        jm_file.add(mi_imprimirArbol);
+        jm_file.add(jmi_cruzarArchivos);
+        jm_file.add(jSeparator1);
+
+        jmi_imprimirArbol.setText("Imprimir Arbol");
+        jmi_imprimirArbol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_imprimirArbolActionPerformed(evt);
+            }
+        });
+        jm_file.add(jmi_imprimirArbol);
 
         jmi_salir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         jmi_salir.setText("Salir");
@@ -793,6 +971,8 @@ public class menu extends javax.swing.JFrame {
 
     final int buffer = 25;                                                       //<- Int determinando la cantidad de registros por pagina
     int bufferActual = 0;                                                       //<- Int determinando la cantidad de registros siendo vizualisada 
+    
+    archivoCruz archivoCruz;
 
 //</editor-fold>
     private void actualizarTabla() {                                            //Actualiza la Tabla
@@ -873,7 +1053,7 @@ public class menu extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -938,7 +1118,7 @@ public class menu extends javax.swing.JFrame {
 
             return escribirRegistros(archivo, true);                            //Llama metodo de escribir registros y retorna si fue exitoso o no
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
     }
@@ -1018,7 +1198,7 @@ public class menu extends javax.swing.JFrame {
             rac.close();
             br.close();                                                         //cierra el buffered reader y el RAF
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -1208,7 +1388,7 @@ public class menu extends javax.swing.JFrame {
             actualizarTabla();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
     }
@@ -1224,7 +1404,7 @@ public class menu extends javax.swing.JFrame {
             }
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
     }
@@ -1240,7 +1420,7 @@ public class menu extends javax.swing.JFrame {
             }
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
     }
@@ -1515,7 +1695,7 @@ public class menu extends javax.swing.JFrame {
             }
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
     }
@@ -1568,6 +1748,53 @@ public class menu extends javax.swing.JFrame {
         jf_cambiarLlave.setVisible(false);
         JOptionPane.showMessageDialog(this, "Llave Cambiada Exitosamente", "Llave Cambiada", JOptionPane.INFORMATION_MESSAGE);
         return true;
+    }
+    
+    public boolean cruzarArchivo(File arch){
+        try {
+            archivoCruz = new archivoCruz(arch);
+            archivoCruz.cargarArchivo();
+            ArrayList<campo> archCampos = archivoCruz.campos;
+            campo campo1 = null;
+            campo campo2 = null;
+            
+            String[] campos1Str = new String[campos.size()];
+            String[] campos2Str = new String[archCampos.size()];
+            for (int j = 0; j < campos.size(); j++) {
+                if (campos.get(j).isLlave()) {
+                    campo1 = campos.get(j);
+                }
+                campos1Str[j] = campos.get(j).getNombre();
+            }
+            for (int i = 0; i < archCampos.size(); i++) {
+                if (archCampos.get(i).isLlave()) {
+                    campo2 = archCampos.get(i);
+                }
+                campos2Str[i] = archCampos.get(i).getNombre();
+            }
+            
+            campo campoComun;
+            
+            if (campo1.getNombre().equals(campo2.getNombre()) && campo1.getTipo().equals(campo2.getTipo())) {
+                campoComun = campo1;
+            }else{
+                JOptionPane.showMessageDialog(this, "No coinciden las llaves primarias", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            
+            jl_noCruz1.setListData(campos1Str);
+            jl_noCruz2.setListData(campos2Str);
+            
+            jl_llaveCruz.setText(campoComun.getNombre());
+            
+            jf_cruzarArchivo.pack();
+            jf_cruzarArchivo.setLocationRelativeTo(null);
+            jf_cruzarArchivo.setVisible(true);
+            return true;
+        } catch (Exception e) {
+            
+            return false;
+        }
     }
 
     private void jmi_nuevoArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_nuevoArchivoActionPerformed
@@ -1866,9 +2093,10 @@ public class menu extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "¡Archivo guardado exitósamente!", "Guardado", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else if (input == JOptionPane.NO_OPTION) {
+                this.dispose();
                 return;
             }else{
-                
+                return;
             }
         }
         cerrarArchivo();
@@ -2013,7 +2241,7 @@ public class menu extends javax.swing.JFrame {
 //            for (int i = 0; i <= spaces; i++) {
 //                concat += " ";
 //            }
-            System.out.println(concat.length());
+            //System.out.println(concat.length());
             bw.write(concat);
             bw.flush();
             bw.close();
@@ -2079,8 +2307,8 @@ public class menu extends javax.swing.JFrame {
 //                for (int i = 0; i < spaces; i++) {
 //                    concat += " ";
 //                }
-                System.out.println(concat);
-                System.out.println(concat.length());
+//                System.out.println(concat);
+//                System.out.println(concat.length());
                 //metaDatos[0] = concat;
                 try {
                     BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));
@@ -2114,7 +2342,7 @@ public class menu extends javax.swing.JFrame {
             if (!path.endsWith(".xlsx") && !path.endsWith(".xls")) {
                 path += ".xls";
             }
-            System.out.println(path);
+//            System.out.println(path);
             ExcelExport expo = new ExcelExport();
             while (anterior()) {
                 //JOptionPane.showMessageDialog(this,"Entro al anterior()");
@@ -2150,7 +2378,7 @@ public class menu extends javax.swing.JFrame {
             if (!path.endsWith(".xml")) {
                 path += ".xml";
             }
-            System.out.println(path);
+//            System.out.println(path);
             XMLExport expo = new XMLExport();
             while (anterior()) {
                 //JOptionPane.showMessageDialog(this,"Entro al anterior()");
@@ -2255,14 +2483,14 @@ public class menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mi_buscarRegistroActionPerformed
 
-    private void mi_imprimirArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_imprimirArbolActionPerformed
+    private void jmi_imprimirArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_imprimirArbolActionPerformed
         if (openFile) {
             arbol.mostrarArbol(arbol.raiz, "", '-');
         } else {
             JOptionPane.showMessageDialog(this, "No hay archivo abierto", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_mi_imprimirArbolActionPerformed
+    }//GEN-LAST:event_jmi_imprimirArbolActionPerformed
 
     private void jm_editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jm_editMouseEntered
         if (openFile && !modificable) {
@@ -2578,6 +2806,198 @@ public class menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_boton_saveExitActionPerformed
 
+    private void jmi_cruzarArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cruzarArchivosActionPerformed
+        File archCruz;
+        JFileChooser jfc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+        jfc.setFileFilter(filter);
+        jfc.showOpenDialog(null);
+        archCruz = jfc.getSelectedFile();
+        String aux = archCruz.getAbsolutePath();
+        if (!aux.endsWith(".txt")) {
+            JOptionPane.showMessageDialog(this, "El archivo no es valido", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        archCruz = new File(aux);
+        cruzarArchivo(archCruz);
+    }//GEN-LAST:event_jmi_cruzarArchivosActionPerformed
+
+    private void jb_derecha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_derecha1ActionPerformed
+        if(jl_noCruz1.getSelectedIndex() == -1){
+            return;
+        }
+        
+        String[] campos1 = new String[jl_noCruz1.getModel().getSize() - 1];
+        
+        String[] camposCruz1 = new String[jl_Cruz1.getModel().getSize() + 1];
+        
+        ListModel model = jl_noCruz1.getModel();
+        ListModel modelCruz = jl_Cruz1.getModel();
+        
+        for (int i = 0; i < modelCruz.getSize(); i++) {
+            camposCruz1[i] = (String)modelCruz.getElementAt(i);
+        }
+        int cont = 0;
+        for (int i = 0; i < model.getSize(); i++) {
+            if (jl_noCruz1.getSelectedIndex() == i) {
+                camposCruz1[modelCruz.getSize()] = (String)model.getElementAt(i);
+            }else{
+                campos1[cont] = (String)model.getElementAt(i);
+                cont++;
+            }
+        }
+        jl_noCruz1.setListData(campos1);
+        jl_Cruz1.setListData(camposCruz1);
+    }//GEN-LAST:event_jb_derecha1ActionPerformed
+
+    private void jb_izquierda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_izquierda1ActionPerformed
+        if(jl_Cruz1.getSelectedIndex() == -1){
+            return;
+        }
+        
+        String[] campos1 = new String[jl_noCruz1.getModel().getSize() + 1];
+        
+        String[] camposCruz1 = new String[jl_Cruz1.getModel().getSize() - 1];
+        
+        ListModel model = jl_noCruz1.getModel();
+        ListModel modelCruz = jl_Cruz1.getModel();
+        
+        for (int i = 0; i < model.getSize(); i++) {
+            campos1[i] = (String)model.getElementAt(i);
+        }
+        int cont = 0;
+        for (int i = 0; i < modelCruz.getSize(); i++) {
+            if (jl_Cruz1.getSelectedIndex() == i) {
+                campos1[model.getSize()] = (String)modelCruz.getElementAt(i);
+            }else{
+                camposCruz1[cont] = (String)modelCruz.getElementAt(i);
+                cont++;
+            }
+        }
+        jl_noCruz1.setListData(campos1);
+        jl_Cruz1.setListData(camposCruz1);
+    }//GEN-LAST:event_jb_izquierda1ActionPerformed
+
+    private void jb_derecha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_derecha2ActionPerformed
+        if(jl_noCruz2.getSelectedIndex() == -1){
+            return;
+        }
+        
+        String[] campos1 = new String[jl_noCruz2.getModel().getSize() - 1];
+        
+        String[] camposCruz1 = new String[jl_Cruz2.getModel().getSize() + 1];
+        
+        ListModel model = jl_noCruz2.getModel();
+        ListModel modelCruz = jl_Cruz2.getModel();
+        
+        for (int i = 0; i < modelCruz.getSize(); i++) {
+            camposCruz1[i] = (String)modelCruz.getElementAt(i);
+        }
+        int cont = 0;
+        for (int i = 0; i < model.getSize(); i++) {
+            if (jl_noCruz2.getSelectedIndex() == i) {
+                camposCruz1[modelCruz.getSize()] = (String)model.getElementAt(i);
+            }else{
+                campos1[cont] = (String)model.getElementAt(i);
+                cont++;
+            }
+        }
+        jl_noCruz2.setListData(campos1);
+        jl_Cruz2.setListData(camposCruz1);
+    }//GEN-LAST:event_jb_derecha2ActionPerformed
+
+    private void jb_izquierda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_izquierda2ActionPerformed
+        if(jl_Cruz2.getSelectedIndex() == -1){
+            return;
+        }
+        
+        String[] campos1 = new String[jl_noCruz2.getModel().getSize() + 1];
+        
+        String[] camposCruz1 = new String[jl_Cruz2.getModel().getSize() - 1];
+        
+        ListModel model = jl_noCruz2.getModel();
+        ListModel modelCruz = jl_Cruz2.getModel();
+        
+        for (int i = 0; i < model.getSize(); i++) {
+            campos1[i] = (String)model.getElementAt(i);
+        }
+        int cont = 0;
+        for (int i = 0; i < modelCruz.getSize(); i++) {
+            if (jl_Cruz2.getSelectedIndex() == i) {
+                campos1[model.getSize()] = (String)modelCruz.getElementAt(i);
+            }else{
+                camposCruz1[cont] = (String)modelCruz.getElementAt(i);
+                cont++;
+            }
+        }
+        jl_noCruz2.setListData(campos1);
+        jl_Cruz2.setListData(camposCruz1);
+    }//GEN-LAST:event_jb_izquierda2ActionPerformed
+
+    private void jb_aceptarCruceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarCruceActionPerformed
+        try{
+            String[] camposCruz1 = new String[jl_Cruz1.getModel().getSize()];
+            String[] camposCruz2 = new String[jl_Cruz2.getModel().getSize()];
+            ArrayList<campo> camposCruzFinal = new ArrayList();
+            
+            for (int i = 0; i < camposCruz1.length; i++) {
+                for (int j = 0; j < campos.size(); j++) {
+                    if (campos.get(j).getNombre().equals(camposCruz1[i])) {
+                        camposCruzFinal.add(campos.get(j));
+                    }
+                }
+            }
+            for (int i = 0; i < camposCruz2.length; i++) {
+                for (int j = 0; j < archivoCruz.campos.size(); j++) {
+                    if (archivoCruz.campos.get(j).getNombre().equals(camposCruz2[i])) {
+                        camposCruzFinal.add(archivoCruz.campos.get(j));
+                    }
+                }
+            }
+            
+            while(anterior());
+            
+            ArrayList<registro> registrosFinal = new ArrayList();
+            
+            do{
+                for (int i = 0; i < registros.size(); i++) {
+                    registro r;
+                    ArrayList objetosFin = new ArrayList();
+                    if ((r = archivoCruz.buscar(registros.get(i).index)) != null) {
+                        for (int j = 0; j < registros.get(i).campos.size(); j++) {
+                            for (int k = 0; k < camposCruzFinal.size(); k++) {
+                                if (camposCruzFinal.get(k).getNombre().equals(registros.get(i).campos.get(j))) {
+                                    objetosFin.add(registros.get(i).objetos.get(j));
+                                }
+                            }
+                        }
+                        for (int j = 0; j < archivoCruz.registros.get(i).campos.size(); j++) {
+                            for (int k = 0; k < camposCruzFinal.size(); k++) {
+                                if (camposCruzFinal.get(k).getNombre().equals(archivoCruz.registros.get(i).campos.get(j))) {
+                                    objetosFin.add(archivoCruz.registros.get(i).objetos.get(j));
+                                }
+                            }
+                        }
+                        registro newr = new registro(registros.get(i).index, camposCruzFinal, objetosFin);
+                        registrosFinal.add(newr);
+                    }
+                }
+            }while(siguiente());
+            
+            File f = new File(file.getAbsoluteFile().toString().substring(0, file.getAbsoluteFile().toString().length() - 4) + "CRUZADO.txt");
+            f.createNewFile();
+            archivoCruz.escribirArchivo(f, registrosFinal, camposCruzFinal);
+            
+        }catch(Exception e){
+//            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jb_aceptarCruceActionPerformed
+
+    private void jb_cancelarCruceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelarCruceActionPerformed
+        archivoCruz = null;
+        jf_cruzarArchivo.setVisible(false);
+    }//GEN-LAST:event_jb_cancelarCruceActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2644,7 +3064,11 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2655,23 +3079,40 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JTable jTable;
     private javax.swing.JButton jb_aceptarCambioLlave;
     private javax.swing.JButton jb_aceptarCampo;
+    private javax.swing.JButton jb_aceptarCruce;
     private javax.swing.JButton jb_cancelarCambioLlave;
     private javax.swing.JButton jb_cancelarCampo;
+    private javax.swing.JButton jb_cancelarCruce;
     private javax.swing.JButton jb_derecha;
+    private javax.swing.JButton jb_derecha1;
+    private javax.swing.JButton jb_derecha2;
     private javax.swing.JButton jb_izquierda;
+    private javax.swing.JButton jb_izquierda1;
+    private javax.swing.JButton jb_izquierda2;
     private javax.swing.JCheckBox jcb_llaveCampo;
     private javax.swing.JComboBox<String> jcb_tipoCampo;
     private javax.swing.JFrame jf_cambiarLlave;
+    private javax.swing.JFrame jf_cruzarArchivo;
     private javax.swing.JFrame jf_eliminarCampo;
     private javax.swing.JFrame jf_modificarCampo;
     private javax.swing.JFrame jf_modificarRegistro;
     private javax.swing.JFrame jf_nuevoCampo;
+    private javax.swing.JList<String> jl_Cruz1;
+    private javax.swing.JList<String> jl_Cruz2;
     private javax.swing.JLabel jl_llaveActual;
+    private javax.swing.JLabel jl_llaveCruz;
+    private javax.swing.JList<String> jl_noCruz1;
+    private javax.swing.JList<String> jl_noCruz2;
     private javax.swing.JMenu jm_edit;
     private javax.swing.JMenu jm_entry;
     private javax.swing.JMenu jm_file;
@@ -2679,9 +3120,11 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_agregarRegistro;
     private javax.swing.JMenuItem jmi_cerrarArchivo;
     private javax.swing.JMenuItem jmi_crearCampo;
+    private javax.swing.JMenuItem jmi_cruzarArchivos;
     private javax.swing.JMenuItem jmi_eliminarCampo;
     private javax.swing.JMenuItem jmi_eliminarRegistro;
     private javax.swing.JMenuItem jmi_guardarArchivo;
+    private javax.swing.JMenuItem jmi_imprimirArbol;
     private javax.swing.JMenuItem jmi_modificarCampo;
     private javax.swing.JMenuItem jmi_nuevoArchivo;
     private javax.swing.JMenuItem jmi_reindexar;
@@ -2691,7 +3134,6 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem mi_buscarRegistro;
     private javax.swing.JMenuItem mi_exportarExcel;
     private javax.swing.JMenuItem mi_exportarXML;
-    private javax.swing.JMenuItem mi_imprimirArbol;
     private javax.swing.JMenuItem mi_modificarRegistro;
     private javax.swing.JCheckBox nuevaLlavePrimaria;
     private javax.swing.JTextField nuevoNombreCampo;
