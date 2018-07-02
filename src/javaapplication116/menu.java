@@ -995,17 +995,18 @@ public class menu extends javax.swing.JFrame {
     }
 
     private void nuevoArchivo() {                                                                                       //Crea un nuevo archivo para trabajar en el
-        JFileChooser jfc = new JFileChooser();                                                                          //JFileChooser para escoger la ruta del archivo
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");                      //limita el tipo de archvo a .txt
-        jfc.setFileFilter(filter);
-        jfc.showOpenDialog(null);
-        file = jfc.getSelectedFile();                                                                                   //Usuario selecciona el archivo
-        String aux = file.getAbsolutePath();                                                                            //String con la ruta absoluta
-        if (!aux.endsWith(".txt")) {                                                                                    //Si no termina en ".txt"
-            aux += ".txt";                                                                                              //Le agrega a la ruta el ".txt"
-        }
-        file = new File(aux);                                                                                           //Y le aplica a el objeto file el archivo
         try {
+            JFileChooser jfc = new JFileChooser();                                                                          //JFileChooser para escoger la ruta del archivo
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");                      //limita el tipo de archvo a .txt
+            jfc.setFileFilter(filter);
+            jfc.showOpenDialog(null);
+            file = jfc.getSelectedFile();                                                                                   //Usuario selecciona el archivo
+            String aux = file.getAbsolutePath();                                                                            //String con la ruta absoluta
+            if (!aux.endsWith(".txt")) {                                                                                    //Si no termina en ".txt"
+                aux += ".txt";                                                                                              //Le agrega a la ruta el ".txt"
+            }
+            file = new File(aux);                                                                                           //Y le aplica a el objeto file el archivo
+            
             if (file != null) {                                                                                         //Si la ruta el archivo existe
                 if (file.toPath().toString().endsWith(".txt")) {                                                            //Si termina en .txt
                     if (!file.exists()) {                                                                                       //Si el arhchivo seleccionado no existe
@@ -1053,7 +1054,7 @@ public class menu extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-//            e.printStackTrace();
+////            e.printStackTrace();
         }
     }
 
@@ -1077,7 +1078,7 @@ public class menu extends javax.swing.JFrame {
         bw.close();
     }
 
-    private boolean escribirArchivo(File archivo) {                             //Escribe todos los datos necesarios en el archivo especificado
+    private boolean escribirArchivo(File archivo, boolean tipo) {                             //Escribe todos los datos necesarios en el archivo especificado
 
         try {
             if (!openFile) {                                                    //Revisa el booleano que determina si el programa tiene un archivo abierto
@@ -1116,9 +1117,9 @@ public class menu extends javax.swing.JFrame {
 
             while (anterior());
 
-            return escribirRegistros(archivo, true);                            //Llama metodo de escribir registros y retorna si fue exitoso o no
+            return escribirRegistros(archivo, tipo);                            //Llama metodo de escribir registros y retorna si fue exitoso o no
         } catch (Exception e) {
-//            e.printStackTrace();
+////            e.printStackTrace();
             return false;
         }
     }
@@ -1198,7 +1199,7 @@ public class menu extends javax.swing.JFrame {
             rac.close();
             br.close();                                                         //cierra el buffered reader y el RAF
         } catch (Exception e) {
-//            e.printStackTrace();
+////            e.printStackTrace();
         }
     }
 
@@ -1208,13 +1209,13 @@ public class menu extends javax.swing.JFrame {
         String tempLine;                                                        //String en el que se cargaran los strings del archivo
         int cont = 0;                                                           //Contador de cuantos registros ha leido
         int pos = posActual;                                                    //Posicion de la que se leera el registro
-        System.out.println(pos);
-        System.out.println(posReg);
+//        System.out.println(pos);
+//        System.out.println(posReg);
         registros = new ArrayList();                                            //Reinicia el arrayList de registros
         br.mark((int) tempFile.length());                                       //marca el inicio del archivo con limite de bytes de movimiento al final del archivo (nunca de acavara esa marca. Revisar la documentacion de BR para mas informacion)
         br.reset();                                                             //Mueve el iterador al inicio del archivo
         while (pos < posReg - 1 && cont < buffer) {                             //Mientras la posicion no se pase de la posicion final del archivo y el contador no se pase de la cantidad de buffer
-            System.out.println("CargarR-" + pos);
+//            System.out.println("CargarR-" + pos);
             br.skip(pos);                                                       //Reinicia el iterador al inicio del archivo
             ArrayList objetos = new ArrayList();                                                //0000Sstring/Iint/Cchar/Ddouble
             char[] sizeReg = new char[4];                                       //Arreglo de caracteres para leer el tamaño del registro
@@ -1230,7 +1231,7 @@ public class menu extends javax.swing.JFrame {
             char[] registro = new char[size];                                   //Arreglo de caracteres del tamaño del registro
             br.read(registro);                                                  //Lee el registro
             tempLine = new String(registro);                                    //Castea el string del registro
-            System.out.println(tempLine);
+//            System.out.println(tempLine);
             if (tempLine.charAt(0) != '*') {                                    //Revisa que el registro no este eliminado
                 cont++;                                                         //Suma uno al contador de los registros leidos
                 String[] datos = tempLine.split("/");                           //Arreglo de string de los campos (objetos)
@@ -1305,8 +1306,8 @@ public class menu extends javax.swing.JFrame {
             ArrayList objetos = new ArrayList();
             char[] sizeReg = new char[4];
             br.read(sizeReg);
-            System.out.println("Cargar-" + pos);
-            System.out.println(new String(sizeReg) + "-" + new String(sizeReg).length());
+//            System.out.println("Cargar-" + pos);
+//            System.out.println(new String(sizeReg) + "-" + new String(sizeReg).length());
             int size = 0;
             try {
                 size = Integer.parseInt(new String(sizeReg));
@@ -1326,8 +1327,8 @@ public class menu extends javax.swing.JFrame {
             }
             pos += reg.length() + 4;
             br.reset();
-            System.out.println("arbol :" + pos);
-            System.out.println("");
+//            System.out.println("arbol :" + pos);
+//            System.out.println("");
         }
         br.close();
     }
@@ -1347,15 +1348,15 @@ public class menu extends javax.swing.JFrame {
                         bf.flip();
                         /*
                         if (pos == -1) {
-                            System.out.println("indice = " + tempReg.index);
+//                            System.out.println("indice = " + tempReg.index);
                             arbol.mostrarArbol(arbol.raiz, "", '.');
                             Thread.sleep(99999999);
                         }
                          */
                         rac.seek(pos);
                         rac.getChannel().write(bf);
-                        System.out.println("Wr:" + pos);
-                        System.out.println("");
+//                        System.out.println("Wr:" + pos);
+//                        System.out.println("");
                         if (archLoc) {
                             tempReg.modif = false;
                         }
@@ -1388,7 +1389,7 @@ public class menu extends javax.swing.JFrame {
             actualizarTabla();
             return true;
         } catch (Exception e) {
-//            e.printStackTrace();
+////            e.printStackTrace();
             return false;
         }
     }
@@ -1404,7 +1405,7 @@ public class menu extends javax.swing.JFrame {
             }
             return false;
         } catch (Exception e) {
-//            e.printStackTrace();
+////            e.printStackTrace();
             return false;
         }
     }
@@ -1420,7 +1421,7 @@ public class menu extends javax.swing.JFrame {
             }
             return false;
         } catch (Exception e) {
-//            e.printStackTrace();
+////            e.printStackTrace();
             return false;
         }
     }
@@ -1457,7 +1458,7 @@ public class menu extends javax.swing.JFrame {
         //Nombre;String;10;false:Numero de Cuenta;Integer;10;true:Edad;Integer;10;false:Facultad;String;10;false:&10000&-1/-1&
 
         if (openFile) {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(new FileReader(tempFile));
             metaDatos = br.readLine().split("&");
             if (Integer.parseInt(metaDatos[1]) != 0) {
                 JOptionPane.showMessageDialog(this, "Existen registros en el archivo.\nNo se puede modificar campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -1486,7 +1487,7 @@ public class menu extends javax.swing.JFrame {
 
     public void eliminarCampo() throws FileNotFoundException, IOException {
         if (openFile) {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(new FileReader(tempFile));
             metaDatos = br.readLine().split("&");
             if (Integer.parseInt(metaDatos[1]) != 0) {
                 JOptionPane.showMessageDialog(this, "Existen registros en el archivo.\nNo se puede modificar campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -1569,14 +1570,14 @@ public class menu extends javax.swing.JFrame {
                             metaDatos[0] = concat;
                             comboCamposModi.setModel(model);
                             for (int i = 0; i < metaDatos.length; i++) {
-                                System.out.println(i + ") " + metaDatos[i]);
+//                                System.out.println(i + ") " + metaDatos[i]);
                             }
                             return true;
                         } else if (!nuevaLlavePrimaria.isSelected()) {
                             metaDatos[0] = concat;
                             comboCamposModi.setModel(model);
                             for (int i = 0; i < metaDatos.length; i++) {
-                                System.out.println(i + ") " + metaDatos[i]);
+//                                System.out.println(i + ") " + metaDatos[i]);
                             }
                             return true;
                         } else {
@@ -1600,7 +1601,7 @@ public class menu extends javax.swing.JFrame {
 
     public void updateEmptyTable() throws FileNotFoundException, IOException {
         DefaultTableModel model = new DefaultTableModel();
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        BufferedReader br = new BufferedReader(new FileReader(tempFile));
         String line = br.readLine();
         metaDatos = line.split("&");
         String[] fields = metaDatos[0].split(":");
@@ -1695,7 +1696,7 @@ public class menu extends javax.swing.JFrame {
             }
             return true;
         } catch (Exception e) {
-//            e.printStackTrace();
+////            e.printStackTrace();
             return false;
         }
     }
@@ -1808,6 +1809,8 @@ public class menu extends javax.swing.JFrame {
                 jf_nuevoCampo.pack();
                 jf_nuevoCampo.setLocationRelativeTo(this);
                 jf_nuevoCampo.setVisible(true);
+                escribirArchivo(tempFile, false);
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Los campos ya no son modificables.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
@@ -1852,6 +1855,7 @@ public class menu extends javax.swing.JFrame {
 
             actualizarTabla();
             JOptionPane.showMessageDialog(this, "Campo agregado exitosamente");
+            escribirArchivo(tempFile,false);//***************************************
         } else {
             JOptionPane.showMessageDialog(this, "El nombre esta vacío.");
         }
@@ -1878,7 +1882,7 @@ public class menu extends javax.swing.JFrame {
         int fin = posFinal;
         Stack ants = anteriores;
 
-        boolean exito = escribirArchivo(file);
+        boolean exito = escribirArchivo(file, true);
 
         posActual = act;
         posAnterior = ant;
@@ -2000,13 +2004,14 @@ public class menu extends javax.swing.JFrame {
                 bufferActual++;
                 indiceReg++;
             }
+            escribirArchivo(tempFile, false);
 
             actualizarTabla();
 
             modificable = false;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error");
-            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jmi_agregarRegistroActionPerformed
 
@@ -2067,7 +2072,7 @@ public class menu extends javax.swing.JFrame {
                 try {
                     escribirRegistros(tempFile, false);
                 } catch (IOException ex) {
-                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 registros.remove(registros.size() - 1);
             } else {
@@ -2086,7 +2091,7 @@ public class menu extends javax.swing.JFrame {
         if (openFile) {                                                     //Si ya hay un arhcivo abierto, pregunta si desea guardar antes de cerrar.
             int input = JOptionPane.showConfirmDialog(this, "Desea guardar el archivo antes de salir?");
             if (input == JOptionPane.YES_OPTION) {
-                boolean exito = escribirArchivo(file);
+                boolean exito = escribirArchivo(file, true);
                 if (!exito) {
                     JOptionPane.showMessageDialog(this, "Error al guardar archivo", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -2117,14 +2122,14 @@ public class menu extends javax.swing.JFrame {
         try {
             modificarCampo();
         } catch (IOException ex) {
-            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jmi_modificarCampoActionPerformed
 
     private void comboCamposModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCamposModiItemStateChanged
         if (comboCamposModi.getSelectedIndex() > 0) {
             //Nombre;String;10;false:Numero de Cuenta;Integer;10;true:Edad;Integer;10;false:Facultad;String;10;false:&10000&-1/-1&
-            //System.out.println("Selected index" + comboCamposModi.getSelectedIndex());
+//            System.out.println("Selected index" + comboCamposModi.getSelectedIndex());
             String[] fields = metaDatos[0].split(":");
             String[] seleccionado = fields[comboCamposModi.getSelectedIndex() - 1].split(";");
             nuevoNombreCampo.setText(seleccionado[0]);
@@ -2225,7 +2230,7 @@ public class menu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile, false));
             String concat = "";
             for (int i = 0; i < metaDatos.length - 1; i++) {
                 concat += metaDatos[i];
@@ -2241,14 +2246,17 @@ public class menu extends javax.swing.JFrame {
 //            for (int i = 0; i <= spaces; i++) {
 //                concat += " ";
 //            }
-            //System.out.println(concat.length());
+//            System.out.println(concat.length());
             bw.write(concat);
             bw.flush();
             bw.close();
+//            for (int i = 0; i < metaDatos.length; i++) {
+//                System.out.println(metaDatos[i]);
+//            }
             updateCampos(metaDatos[0].split(":"));
             updateEmptyTable();
         } catch (IOException ex) {
-            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
         }
         jf_modificarCampo.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -2257,7 +2265,7 @@ public class menu extends javax.swing.JFrame {
         try {
             eliminarCampo();
         } catch (IOException ex) {
-            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jmi_eliminarCampoActionPerformed
 
@@ -2311,7 +2319,7 @@ public class menu extends javax.swing.JFrame {
 //                System.out.println(concat.length());
                 //metaDatos[0] = concat;
                 try {
-                    BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile, false));
                     bw.write(concat);
                     bw.flush();
                     bw.close();
@@ -2320,7 +2328,7 @@ public class menu extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Borrado exitoso!", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
                     jf_eliminarCampo.dispose();
                 } catch (IOException ex) {
-                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else {
@@ -2333,38 +2341,42 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void mi_exportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_exportarExcelActionPerformed
-        if (openFile) {
-            JFileChooser jfc = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("EXCEL FILES", "xlsx", "xls");
-            jfc.setFileFilter(filter);
-            jfc.showOpenDialog(null);
-            String path = jfc.getSelectedFile().getAbsolutePath();
-            if (!path.endsWith(".xlsx") && !path.endsWith(".xls")) {
-                path += ".xls";
-            }
-//            System.out.println(path);
-            ExcelExport expo = new ExcelExport();
-            while (anterior()) {
-                //JOptionPane.showMessageDialog(this,"Entro al anterior()");
-            }
-            actualizarTabla();
-            try {
-                expo.createExcel(jTable);
-                while (siguiente()) {
-                    actualizarTabla();
-                    expo.createExcel(jTable);
+        try {
+            
+            if (openFile) {
+                JFileChooser jfc = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("EXCEL FILES", "xlsx", "xls");
+                jfc.setFileFilter(filter);
+                jfc.showOpenDialog(null);
+                String path = jfc.getSelectedFile().getAbsolutePath();
+                if (!path.endsWith(".xlsx") && !path.endsWith(".xls")) {
+                    path += ".xls";
                 }
-                expo.saveExcel(path);
-            } catch (IOException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                System.out.println(path);
+                ExcelExport expo = new ExcelExport();
+                while (anterior()) {
+                    //JOptionPane.showMessageDialog(this,"Entro al anterior()");
+                }
+                actualizarTabla();
+                try {
+                    expo.createExcel(jTable);
+                    while (siguiente()) {
+                        actualizarTabla();
+                        expo.createExcel(jTable);
+                    }
+                    expo.saveExcel(path);
+                } catch (IOException ex) {
+//                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                while (anterior()) {
+//                    System.out.println("anterior");
+                }
+                actualizarTabla();
+                JOptionPane.showMessageDialog(this, "¡Exportado Exitosamente!", "Exportar Excel", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay archivo abierto.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            while (anterior()) {
-                //System.out.println("anterior");
-            }
-            actualizarTabla();
-            JOptionPane.showMessageDialog(this, "¡Exportado Exitosamente!", "Exportar Excel", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "No hay archivo abierto.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_mi_exportarExcelActionPerformed
 
@@ -2387,23 +2399,25 @@ public class menu extends javax.swing.JFrame {
             try {
                 expo.createXML(jTable);
                 while (siguiente()) {
-                    actualizarTabla();
-                    expo.createXML(jTable);
+                    if(jTable.getRowCount()>0){
+                        actualizarTabla();
+                        expo.createXML(jTable);
+                    }
                 }
                 expo.saveXML(path);
                 //JOptionPane.showMessageDialog(this,"¡Exportado Exitosamente!","Exportar XML",JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParserConfigurationException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             } catch (TransformerException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             }
             while (anterior()) {
-                //System.out.println("anterior");
+//                System.out.println("anterior");
             }
             actualizarTabla();
-            JOptionPane.showMessageDialog(this, "¡Exportado Exitosamente!", "Exportar Excel", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "¡Exportado Exitosamente!", "Exportar XML", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "No hay archivo abierto.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -2412,13 +2426,13 @@ public class menu extends javax.swing.JFrame {
     private void mi_buscarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_buscarRegistroActionPerformed
         if (openFile) {
             try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                br.mark((int) file.length());
+                BufferedReader br = new BufferedReader(new FileReader(tempFile));
+                br.mark((int) tempFile.length());
                 char[] line = new char[500];
                 br.read(line, 0, 500);
                 String linestr = new String(line);
-                //System.out.println(linestr);
-                //System.out.println(linestr.length());
+//                System.out.println(linestr);
+//                System.out.println(linestr.length());
                 br.close();
                 metaDatos = linestr.split("&");
                 String[] fields = metaDatos[0].split(":");
@@ -2474,9 +2488,9 @@ public class menu extends javax.swing.JFrame {
                 }
 
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             JOptionPane.showMessageDialog(this, "No hay archivo abierto.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -2552,8 +2566,8 @@ public class menu extends javax.swing.JFrame {
         if (openFile) {
             tf_modificarRegistroInfo.setText("");
             try {
-                BufferedReader br = new BufferedReader(new FileReader(file));   //Desde aqui, comienza a buscar el nodo que queremos modificar.
-                br.mark((int) file.length());
+                BufferedReader br = new BufferedReader(new FileReader(tempFile));   //Desde aqui, comienza a buscar el nodo que queremos modificar.
+                br.mark((int) tempFile.length());
                 char[] line = new char[500];
                 br.read(line, 0, 500);
                 String linestr = new String(line);
@@ -2580,21 +2594,21 @@ public class menu extends javax.swing.JFrame {
                         if (catcher != null) {
                             int position = catcher.getPosition(key);
                             positionToModify = position;
-                            //System.out.println(position);
-                            br = new BufferedReader(new FileReader(file));
+//                            System.out.println(position);
+                            br = new BufferedReader(new FileReader(tempFile));
                             br.skip(position);
                             char[] size = new char[4];
                             br.read(size);
                             String s = new String(size);
-                            //System.out.println(s);
+//                            System.out.println(s);
                             int sz = Integer.parseInt(s);
                             char[] entry = new char[sz];
                             br.read(entry);
                             br.close();
                             s = new String(entry);
                             entryToModify = new String(entry);
-                            //System.out.println(s);
-                            //System.out.println(metaDatos[0]);
+//                            System.out.println(s);
+//                            System.out.println(metaDatos[0]);
                             fields = metaDatos[0].split(":");
 
                             DefaultComboBoxModel model = new DefaultComboBoxModel();
@@ -2619,9 +2633,9 @@ public class menu extends javax.swing.JFrame {
                 }
 
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             JOptionPane.showMessageDialog(this, "No hay archivo abierto", "Error", JOptionPane.ERROR_MESSAGE);
@@ -2667,8 +2681,8 @@ public class menu extends javax.swing.JFrame {
                 char type = original.charAt(0);
                 original = original.substring(1, original.length());
                 if (infoToBeWritten.length() <= original.length()) {
-                    //System.out.println(infoToBeWritten + "->" + infoToBeWritten.length());
-                    //System.out.println(" "+original + "->" + (original.length()+1));
+//                    System.out.println(infoToBeWritten + "->" + infoToBeWritten.length());
+//                    System.out.println(" "+original + "->" + (original.length()+1));
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Se recortara el campo debido a que es mayor en tamaño que el original", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -2763,8 +2777,8 @@ public class menu extends javax.swing.JFrame {
                         entryToModify += info[i];
                         entryToModify += "/";
                     }
-                    //System.out.println("entry-> " + entryToModify);
-                    //System.out.println("origi-> " + beforSplit);
+//                    System.out.println("entry-> " + entryToModify);
+//                    System.out.println("origi-> " + beforSplit);
                     JOptionPane.showMessageDialog(this, "Guardado en buffer. Para escribir y salir, presione el botón.", "Guardado", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Se ha ingresado un dato invalido", "Error", JOptionPane.ERROR_MESSAGE);
@@ -2798,7 +2812,7 @@ public class menu extends javax.swing.JFrame {
                 jf_modificarRegistro.dispose();
 
             } catch (IOException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
@@ -2941,6 +2955,14 @@ public class menu extends javax.swing.JFrame {
             ArrayList<campo> camposCruzFinal = new ArrayList();
             
             for (int i = 0; i < camposCruz1.length; i++) {
+                camposCruz1[i] = jl_Cruz1.getModel().getElementAt(i);
+            }
+            
+            for (int i = 0; i < camposCruz2.length; i++) {
+                camposCruz2[i] = jl_Cruz2.getModel().getElementAt(i);
+            }
+            
+            for (int i = 0; i < camposCruz1.length; i++) {
                 for (int j = 0; j < campos.size(); j++) {
                     if (campos.get(j).getNombre().equals(camposCruz1[i])) {
                         camposCruzFinal.add(campos.get(j));
@@ -2955,39 +2977,71 @@ public class menu extends javax.swing.JFrame {
                 }
             }
             
+            String campoLlave = "";
+            
+            for (int i = 0; i < campos.size(); i++) {
+                if(jl_llaveCruz.getText().equals(campos.get(i).getNombre())){
+                    camposCruzFinal.add(campos.get(i));
+                    campoLlave = campos.get(i).getNombre();
+                }
+            }
+            
             while(anterior());
             
             ArrayList<registro> registrosFinal = new ArrayList();
             
+//            System.out.println(camposCruzFinal.toString());
+            int cont = 502;
+            ArbolB nuevoArbol = new ArbolB(orden);
             do{
+//                System.out.println("\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n ");
                 for (int i = 0; i < registros.size(); i++) {
                     registro r;
                     ArrayList objetosFin = new ArrayList();
                     if ((r = archivoCruz.buscar(registros.get(i).index)) != null) {
                         for (int j = 0; j < registros.get(i).campos.size(); j++) {
-                            for (int k = 0; k < camposCruzFinal.size(); k++) {
-                                if (camposCruzFinal.get(k).getNombre().equals(registros.get(i).campos.get(j))) {
+                            for (int k = 0; k < camposCruz1.length; k++) {
+                                if (camposCruz1[k].equals(registros.get(i).campos.get(j).getNombre())) {
                                     objetosFin.add(registros.get(i).objetos.get(j));
                                 }
                             }
                         }
-                        for (int j = 0; j < archivoCruz.registros.get(i).campos.size(); j++) {
-                            for (int k = 0; k < camposCruzFinal.size(); k++) {
-                                if (camposCruzFinal.get(k).getNombre().equals(archivoCruz.registros.get(i).campos.get(j))) {
-                                    objetosFin.add(archivoCruz.registros.get(i).objetos.get(j));
+                        for (int j = 0; j < r.campos.size(); j++) {
+                            for (int k = 0; k < camposCruz2.length; k++) {
+//                                System.out.println("CamposFinal: " + camposCruz2[k]);
+//                                System.out.println("RCampos: " + r.campos.get(j).getNombre());
+//                                System.out.println("Obj: " + r.objetos.get(j).toString());
+                                if (camposCruz2[k].equals(r.campos.get(j).getNombre())) {
+//                                    System.out.println("SI");
+                                    objetosFin.add(r.objetos.get(j));
                                 }
                             }
                         }
+                        objetosFin.add((int)registros.get(i).index);
                         registro newr = new registro(registros.get(i).index, camposCruzFinal, objetosFin);
+                        nuevoArbol.insert(r.index, cont);
+                        cont += newr.toString().length() + 4;
                         registrosFinal.add(newr);
                     }
                 }
             }while(siguiente());
             
             File f = new File(file.getAbsoluteFile().toString().substring(0, file.getAbsoluteFile().toString().length() - 4) + "CRUZADO.txt");
+            if (f.exists()) {
+                f.delete();
+            }
             f.createNewFile();
-            archivoCruz.escribirArchivo(f, registrosFinal, camposCruzFinal);
+            archivoCruz = new archivoCruz(f);
+            archivoCruz.arbol = nuevoArbol;
+            archivoCruz.registros = registrosFinal;
+            archivoCruz.campos = camposCruzFinal;
+            archivoCruz.escribirArchivo(f);
             
+            jf_cruzarArchivo.setVisible(false);
+            jl_noCruz1.setListData(new String[0]);
+            jl_noCruz2.setListData(new String[0]);
+            jl_Cruz1.setListData(new String[0]);
+            jl_Cruz2.setListData(new String[0]);
         }catch(Exception e){
 //            e.printStackTrace();
         }

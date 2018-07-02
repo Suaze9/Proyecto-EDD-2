@@ -28,15 +28,15 @@ public class archivoCruz {
     int posReg = 0;
 
     Stack anteriores = new Stack();
-    int posAnterior;
-    int posActual;
+    int posAnterior = 502;
+    int posActual = 502;
     int posFinal;
 
     private final int orden = 6;
 
     ArbolB arbol = new ArbolB(orden);
 
-    final int buffer = 25;
+    final int buffer = 10000;
     int bufferActual = 0;
 
     public archivoCruz(File file) {
@@ -269,7 +269,7 @@ public class archivoCruz {
         return null;
     }
 
-    public boolean escribirArchivo(File arch, ArrayList<registro> registrosFIN, ArrayList<campo> camposFIN) {                             //Escribe todos los datos necesarios en el archivo especificado
+    public boolean escribirArchivo(File arch) {                             //Escribe todos los datos necesarios en el archivo especificado
 
         try {
             //AQUI EMPIEZA LO DE ESCRIBIR EN CIERTA POSICION
@@ -278,10 +278,10 @@ public class archivoCruz {
 
             String buffer = "";                                                 //String en el que se escribira temporalmente el contenido a escribir en el archivo
 
-            for (campo campoActual : camposFIN) {                                  //Recorre los campos
+            for (campo campoActual : campos) {                                  //Recorre los campos
                 buffer += campoActual.toStringFile();                           //Y agrega el .toString() de los mismos...
             }                                                                   //...El .toString() de los campos ya esta formateado para ser escritos directamente
-            buffer += "&" + registrosFIN.size() + "&";
+            buffer += "&" + registros.size() + "&";
             buffer += "-1" + "/" + "-1" + "&";
 
             int spaces = 500 - buffer.length();                                 //Agrega espacios en blanco para completar los siguientes 500 bytes que conforma el metadata
@@ -289,8 +289,9 @@ public class archivoCruz {
                 buffer += " ";
             }
 
+//            System.out.println(buffer);
             byte[] bytes = buffer.getBytes();                                   //arreglo de bytes de el String a escribir (buffer)
-            ByteBuffer bf = ByteBuffer.allocate(buffer.length());               //ByteBuffer de el arreglo de bytes (El canal de Random Access File utiliza ByteBuffer)
+            ByteBuffer bf = ByteBuffer.allocate(bytes.length);               //ByteBuffer de el arreglo de bytes (El canal de Random Access File utiliza ByteBuffer)
             bf.put(bytes);                                                      //Agrega el arreglo de bytes al ByteBuffer
             bf.flip();                                                          //Metodo flip lo alista para escribir
             rac.seek(0);                                                        //Mueve el RAF a la posicion inicial del archivo
@@ -300,19 +301,19 @@ public class archivoCruz {
 
             while (anterior());
 
-            return escribirRegistros(arch, true, registrosFIN, camposFIN);                            //Llama metodo de escribir registros y retorna si fue exitoso o no
+            return escribirRegistros(arch, true);                            //Llama metodo de escribir registros y retorna si fue exitoso o no
         } catch (Exception e) {
 //            e.printStackTrace();
             return false;
         }
     }
     
-    public boolean escribirRegistros(File arch, boolean archLoc, ArrayList<registro> registrosFIN, ArrayList<campo> camposFIN) throws IOException {
+    public boolean escribirRegistros(File arch, boolean archLoc) throws IOException {
         try {
             RandomAccessFile rac = new RandomAccessFile(arch, "rw");
             
-                for (int i = 0; i < registrosFIN.size(); i++) {
-                    registro tempReg = registrosFIN.get(i);
+                for (int i = 0; i < registros.size(); i++) {
+                    registro tempReg = registros.get(i);
                     if (tempReg.modif) {
                         int pos = arbol.buscarPos(tempReg.index);
                         String regStr = tempReg.toString();
@@ -322,7 +323,7 @@ public class archivoCruz {
                         bf.flip();
                         /*
                         if (pos == -1) {
-                            System.out.println("indice = " + tempReg.index);
+//                            System.out.println("indice = " + tempReg.index);
                             arbol.mostrarArbol(arbol.raiz, "", '.');
                             Thread.sleep(99999999);
                         }

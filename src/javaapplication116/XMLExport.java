@@ -49,6 +49,9 @@ public class XMLExport {
                 for (int j = 0; j < model.getColumnCount(); j++) {
                     String col = tcm.getColumn(j).getHeaderValue().toString();
                     col = col.replace(' ', '_');
+                    if(col.contains("*")){
+                        col = col.replace('*','_');
+                    }
                     Tag columna = new Tag(col);
                     String info = "";
                     if (model.getValueAt(i, j) != null) {
@@ -69,8 +72,13 @@ public class XMLExport {
     }
 
     public void saveXML(String path) throws FileNotFoundException, ParserConfigurationException, TransformerException {
-        JespXML saver = new JespXML(new File(path), Encoding.UTF_8);
-        saver.escribirXML(raiz);
+        try {
+            JespXML saver = new JespXML(new File(path), Encoding.UTF_8);
+            saver.escribirXML(raiz);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         //System.out.println("Se supone que ya :v");
 
     }

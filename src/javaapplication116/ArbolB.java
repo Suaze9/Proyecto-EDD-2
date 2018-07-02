@@ -35,7 +35,7 @@ public class ArbolB {
     //muestra el arbol al usuario
     public void mostrarArbol(NodoB nodo, String cadena, char caracter) {
         for (int i = 0; i < nodo.getPaginasLlenas(); i++) {
-//            System.out.print(nodo.pagina[i] + " ");
+            System.out.print(nodo.pagina[i] + " ");
         }
         if (!nodo.esHoja()) {
             cadena += caracter;
